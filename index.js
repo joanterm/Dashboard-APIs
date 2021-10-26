@@ -5,8 +5,12 @@ const imageAuthor = document.querySelector(".image-author")
 
 
 const getRandomImage = () => {
-    fetch(`https://api.unsplash.com/photos/random/?query=nature&orientation=landscape&client_id=${myKeyAccess}`)
+    fetch(`https://api.unsplash.com/photos/random/?query=nature
+    &orientation=landscape&client_id=${myKeyAccess}`)
     .then((response) => {
+        if(!response.ok) {
+            throw Error(`Error code is : ${response.status}`)
+        }
         return response.json()
     })
     .then((data) => {
@@ -15,6 +19,10 @@ const getRandomImage = () => {
         body.style.backgroundImage=`url(${data.urls.regular})`
         imageAuthor.innerHTML = `By: ${data.user.name}`
 
+    })
+    .catch((err) => {
+        console.log(err)
+        body.style.backgroundImage= `url("https://images.unsplash.com/photo-1475598322381-f1b499717dda?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNzA3Mjd8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MzUyNTc2NjA&ixlib=rb-1.2.1&q=80&w=1080")`
     })
 }
 getRandomImage()
