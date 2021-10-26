@@ -27,6 +27,13 @@ main {
     justify-content: space-between;
 }
 
+.crypto-section {
+    border: 3px solid pink;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .middle-section {
     text-align: center;
 }
