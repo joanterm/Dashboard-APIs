@@ -2,7 +2,6 @@
 const myKeyAccessImages = "dFICnddE6ZFgwGzvuXlFywQRN9JF2z4p8ALs-QBxwoQ"
 const myKeyAccessWeather = "2807ce89a998cb8377e1eda01361ea54"
 const body = document.querySelector("#body")
-const imageAuthor = document.querySelector(".image-author")
 const cryptoName = document.querySelector(".crypto-name")
 const cryptoIcon = document.querySelector(".crypto-icon")
 const currentPrice = document.querySelector(".current-price")
@@ -13,27 +12,25 @@ const tempArea = document.querySelector(".temp-area")
 const weatherIcon = document.querySelector(".weather-icon")
 
 //FETCHES API FOR RANDOM BACKGROUND IMAGE
-// const getRandomImage = () => {
-//     fetch(`https://api.unsplash.com/photos/random/?query=nature&orientation=landscape&client_id=${myKeyAccessImages}`)
-//     .then((response) => {
-//         if(!response.ok) {
-//             throw Error(`Error code is: ${response.status}`)
-//         }
-//         return response.json()
-//     })
-//     .then((data) => {
-//         console.log(data);
-//         console.log(data.urls.regular)
-//         body.style.backgroundImage=`url(${data.urls.regular})`
-//         imageAuthor.innerHTML = `By: ${data.user.name}`
-
-//     })
-//     .catch((err) => {
-//         console.log(err)
-//         body.style.backgroundImage= `url("https://images.unsplash.com/photo-1475598322381-f1b499717dda?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNzA3Mjd8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MzUyNTc2NjA&ixlib=rb-1.2.1&q=80&w=1080")`
-//     })
-// }
-// getRandomImage()
+const getRandomImage = () => {
+    fetch(`https://api.unsplash.com/photos/random/?query=nature&orientation=landscape&client_id=${myKeyAccessImages}`)
+    .then((response) => {
+        if(!response.ok) {
+            throw Error(`Error code is: ${response.status}`)
+        }
+        return response.json()
+    })
+    .then((data) => {
+        console.log(data);
+        console.log(data.urls.regular)
+        body.style.backgroundImage=`url(${data.urls.regular})`
+    })
+    .catch((err) => {
+        console.log(err)
+        body.style.backgroundImage= `url("https://images.unsplash.com/photo-1475598322381-f1b499717dda?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNzA3Mjd8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MzUyNTc2NjA&ixlib=rb-1.2.1&q=80&w=1080")`
+    })
+}
+getRandomImage()
 
 // FETCHES API FOR CRYPTOCURRENCY COIN
 const getCryptoCoin = () => {
@@ -88,3 +85,7 @@ const getMyWeather = () => {
 }
 getMyWeather()
 
+// TO ACCESS USER'S COMPUTER'S GEOLOCATION
+// navigator.geolocation.getCurrentPosition(position => {
+//     fetch(`https://apis.scrimba.com/openweathermap/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=imperial`)
+// )}
