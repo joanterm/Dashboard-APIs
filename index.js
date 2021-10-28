@@ -1,5 +1,6 @@
 
-const myKeyAccess = "dFICnddE6ZFgwGzvuXlFywQRN9JF2z4p8ALs-QBxwoQ"
+const myKeyAccessImages = "dFICnddE6ZFgwGzvuXlFywQRN9JF2z4p8ALs-QBxwoQ"
+const myKeyAccessWeather = "2807ce89a998cb8377e1eda01361ea54"
 const body = document.querySelector("#body")
 const imageAuthor = document.querySelector(".image-author")
 const cryptoName = document.querySelector(".crypto-name")
@@ -8,10 +9,12 @@ const currentPrice = document.querySelector(".current-price")
 const marketCapRank = document.querySelector(".market-cap-rank")
 const timeArea = document.querySelector(".time-area")
 const dateArea = document.querySelector(".date-area")
+const tempArea = document.querySelector(".temp-area")
+const weatherIcon = document.querySelector(".weather-icon")
 
 //FETCHES API FOR RANDOM BACKGROUND IMAGE
 // const getRandomImage = () => {
-//     fetch(`https://api.unsplash.com/photos/random/?query=nature&orientation=landscape&client_id=${myKeyAccess}`)
+//     fetch(`https://api.unsplash.com/photos/random/?query=nature&orientation=landscape&client_id=${myKeyAccessImages}`)
 //     .then((response) => {
 //         if(!response.ok) {
 //             throw Error(`Error code is: ${response.status}`)
@@ -60,6 +63,28 @@ const displayTimeAndDate = () => {
     timeArea.innerHTML = new Date().toLocaleTimeString([], { hour: '2-digit', minute: "2-digit" })
     dateArea.innerHTML = new Date().toLocaleDateString()
 }
+setInterval(displayTimeAndDate, 1000) //UPDATES THE TIME AUTOMATICALLY
 displayTimeAndDate()
 
+
+const getMyWeather = () => {
+    fetch(`https://api.openweathermap.org/data/2.5/weather?appid=${myKeyAccessWeather}&lat=40.6617&lon=-73.8478&units=imperial`)
+    .then((responseWeather) => {
+        if(!responseWeather.ok) {
+            throw Error (`Error code is: ${responseWeather.status}`)
+        }
+        return responseWeather.json()
+    })
+    .then((dataWeather) => {
+        console.log(dataWeather);
+        tempArea.innerHTML = `${Math.round(dataWeather.main.temp)}°`
+        weatherIcon.src = dataWeather.weather.icon
+        const icon = dataWeather.weather[0].icon //TO DECODE IMG CODE
+        weatherIcon.src = `http://openweathermap.org/img/w/${icon}.png`     
+    })
+    .catch((errWeather) => {
+        console.log(errWeather)
+    })
+}
+getMyWeather()
 
